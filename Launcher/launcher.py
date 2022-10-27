@@ -161,9 +161,31 @@ class param():
             window=self.FileE
         )
         
+        self.validB=self.Pcanvas.create_window(
+            self.top.winfo_width()/2, 
+            (self.top.winfo_height()/2)+200, 
+            window=Button(self.top, 
+                font=("Arial", 15), 
+                relief="flat", 
+                borderwidth=0, 
+                bg="#1e2227", 
+                width=7, 
+                highlightthickness=1, 
+                highlightbackground='black', 
+                fg="white", 
+                text="Valid",
+                command=self.saveBis
+            )
+        )
+        
         self.top.bind('<Return>', self.save)
     
     def save(self, x):
+        self.config['username']=self.UsrE.get()
+        self.config['path']=self.FileE.get()
+        dump(self.config, open("config.json", "w"))
+    
+    def saveBis(self):
         self.config['username']=self.UsrE.get()
         self.config['path']=self.FileE.get()
         dump(self.config, open("config.json", "w"))
