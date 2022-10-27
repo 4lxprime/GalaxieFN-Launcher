@@ -1,9 +1,10 @@
-from tkinter import *
+from tkinter import Button, Tk, Toplevel, Canvas, Entry, filedialog
 from PIL import Image, ImageTk
 from pypresence import Presence
-import os
-import time
-import threading
+from os import path as ospath
+from time import time, sleep
+from threading import Thread
+from json import load
 
 
 __author__="4lxprime"
@@ -17,7 +18,7 @@ def stop():
 
 def RPC():
     try:
-        start=int(time.time())
+        start=int(time())
         rpc_id=1029738684330819665
         RPC=Presence(rpc_id)
         RPC.connect()
@@ -29,11 +30,11 @@ def RPC():
             large_image="logo",
             state="GalaxieFN Launcher")
         while 1:
-            time.sleep(15)
+            sleep(15)
     except: 
         pass
 
-tRpc=threading.Thread(target=RPC)
+tRpc=Thread(target=RPC)
 tRpc.setDaemon(True)
 tRpc.start()
 
@@ -43,7 +44,7 @@ root.geometry("1000x500")
 root.minsize(1000, 500)
 root.maxsize(1000, 500)
 root.title("  GalaxieFN Launcher")
-root.iconbitmap(f"{os.path.dirname(os.path.realpath(__file__))}/assets/logo.ico")
+root.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/assets/logo.ico")
 
 class param():
     def __init__(self):
@@ -52,11 +53,67 @@ class param():
         self.top.minsize(800, 500)
         self.top.maxsize(800, 500)
         self.top.title(f"  GalaxieFn Parameters")
-        self.top.iconbitmap(f"{os.path.dirname(os.path.realpath(__file__))}/assets/logo.ico")
+        self.top.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/assets/logo.ico")
+        
+        self.conf_file=open('config.json')
+        self.config=load(self.conf_file)
+        
+        self.PBackImg=ImageTk.PhotoImage(
+            Image.open(
+                f"{ospath.dirname(ospath.realpath(__file__))}/assets/back.jpg"
+                ).resize
+            (
+                (1000, 500)
+            )
+        )
+
+
+        self.Pcanvas=Canvas(self.top, 
+            bg="#23272e", 
+            width=1000,
+            height=500
+        )
+
+        self.Pcanvas.pack(expand=True, fill="both")
+
+        self.Pbg=self.Pcanvas.create_image(0, 0, image=BackImg, anchor="nw")
+
+        self.Ptop=self.Pcanvas.create_rectangle(
+            0, -250, 
+            self.top.maxsize()[0], 100,
+            outline="black", 
+            fill="#1c1c1c"
+        )
+        
+        self.PTt=self.Pcanvas.create_text(
+            self.top.winfo_width()/2, 50, 
+            text="GalaxieFN Launcher", 
+            font=('Helvetica 30 bold'), 
+            fill="white"
+        )
+        
+        self.Usr=Entry(self.top,
+            font=("Arial", 20), 
+            relief="flat", 
+            borderwidth=0, 
+            bg="#1e2227", 
+            width=15, 
+            highlightthickness=1, 
+            highlightbackground='black', 
+            fg="white"
+        )
+        
+        self.Usr.insert(0, self.config['username'])
+        
+        self.Pcanvas.create_window(
+            (self.top.winfo_width()/2)+50, (self.top.winfo_height()/2)-220+nb,
+            window=globals()[f"E{x}{i}E"],
+            state="hidden"
+        )
 
 BackImg=ImageTk.PhotoImage(
     Image.open(
-        f"{os.path.dirname(os.path.realpath(__file__))}/assets/back.jpg"
+        f"{ospath.dirname(ospath.realpath(__file__))}/assets/back.jpg"
         ).resize
     (
         (1000, 500)
@@ -85,7 +142,7 @@ root.update()
 
 LogoImg=ImageTk.PhotoImage(
     Image.open(
-        f"{os.path.dirname(os.path.realpath(__file__))}/assets/logo.png"
+        f"{ospath.dirname(ospath.realpath(__file__))}/assets/logo.png"
         ).resize
     (
         (80, 80)
@@ -150,7 +207,7 @@ paramB=canvas.create_window(
     window=Button(root, 
         font=("Arial", 15), 
         relief="flat", 
-        borderwidth=0, 
+        borderwidth=0,
         bg="#1e2227", 
         width=7, 
         highlightthickness=1, 
