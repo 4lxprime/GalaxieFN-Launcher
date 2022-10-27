@@ -4,7 +4,7 @@ from pypresence import Presence
 from os import path as ospath
 from time import time, sleep
 from threading import Thread
-from json import load
+from json import load, dump
 
 
 __author__="4lxprime"
@@ -55,7 +55,7 @@ class param():
         self.top.title(f"  GalaxieFn Parameters")
         self.top.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/assets/logo.ico")
         
-        self.conf_file=open('config.json')
+        self.conf_file=open(f"{ospath.dirname(ospath.realpath(__file__))}/config.json")
         self.config=load(self.conf_file)
         
         self.PBackImg=ImageTk.PhotoImage(
@@ -92,7 +92,14 @@ class param():
             fill="white"
         )
         
-        self.Usr=Entry(self.top,
+        self.UsrT=self.Pcanvas.create_text(
+            (self.top.winfo_width()/2)-150, (self.top.winfo_height()/2), 
+            text="Username: ", 
+            font=("Helvetica 20 bold"),
+            fill="white"
+        )
+        
+        self.UsrE=Entry(self.top,
             font=("Arial", 20), 
             relief="flat", 
             borderwidth=0, 
@@ -103,13 +110,63 @@ class param():
             fg="white"
         )
         
-        self.Usr.insert(0, self.config['username'])
+        self.UsrE.insert(0, self.config['username'])
         
         self.Pcanvas.create_window(
-            (self.top.winfo_width()/2)+50, (self.top.winfo_height()/2)-220+nb,
-            window=globals()[f"E{x}{i}E"],
-            state="hidden"
+            (self.top.winfo_width()/2)+50, self.top.winfo_height()/2,
+            window=self.UsrE
         )
+        
+        
+        
+        self.FileT=self.Pcanvas.create_text(
+            (self.top.winfo_width()/2)-150, (self.top.winfo_height()/2)+50, 
+            text="Game path: ", 
+            font=("Helvetica 20 bold"),
+            fill="white"
+        )
+        
+        self.FileE=Entry(self.top,
+            font=("Arial", 20), 
+            relief="flat", 
+            borderwidth=0, 
+            bg="#1e2227", 
+            width=15, 
+            highlightthickness=1, 
+            highlightbackground='black', 
+            fg="white"
+        )
+        
+        self.Pcanvas.create_window(
+            (self.top.winfo_width()/2)+200, (self.top.winfo_height()/2)+50, 
+            window=Button(self.top, 
+                font=("Arial", 15), 
+                relief="flat", 
+                borderwidth=0, 
+                bg="#1a1d21", 
+                width=3, 
+                height=1, 
+                highlightthickness=1, 
+                highlightbackground='black', 
+                fg="white", 
+                text="...",
+                command=lambda : self.FileE.insert(0, filedialog.askdirectory(title="GalaxieFN Path"))
+            )
+        )
+        
+        self.FileE.insert(0, self.config['path'])
+        
+        self.Pcanvas.create_window(
+            (self.top.winfo_width()/2)+50, (self.top.winfo_height()/2)+50,
+            window=self.FileE
+        )
+        
+        self.top.bind('<Return>', self.save)
+    
+    def save(self, x):
+        self.config['username']=self.UsrE.get()
+        self.config['path']=self.FileE.get()
+        dump(self.config, open("config.json", "w"))
 
 BackImg=ImageTk.PhotoImage(
     Image.open(
@@ -202,8 +259,8 @@ cred=canvas.create_window(
 )
 
 paramB=canvas.create_window(
-    root.winfo_width()-60, 
-    50, 
+    60, 
+    root.winfo_height()-30, 
     window=Button(root, 
         font=("Arial", 15), 
         relief="flat", 
