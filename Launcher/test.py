@@ -24,7 +24,6 @@ def startG():
     else:
         system(f"start {p}/start.bat")
         
-
 rpc_id=1029738684330819665
 RPC=Presence(rpc_id)
 RPC.connect()
@@ -49,7 +48,7 @@ root.geometry("1000x500")
 root.minsize(1000, 500)
 root.maxsize(1000, 500)
 root.title("  GalaxieFN Launcher")
-root.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/logo.ico")
+root.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/assets/logo.ico")
 
 class param():
     def __init__(self):
@@ -58,14 +57,14 @@ class param():
         self.top.minsize(800, 500)
         self.top.maxsize(800, 500)
         self.top.title(f"  GalaxieFn Parameters")
-        self.top.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/logo.ico")
+        self.top.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/assets/logo.ico")
         
         self.conf_file=open(f"{ospath.dirname(ospath.realpath(__file__))}/config.json")
         self.config=load(self.conf_file)
         
         self.PBackImg=ImageTk.PhotoImage(
             Image.open(
-                f"{ospath.dirname(ospath.realpath(__file__))}/back.jpg"
+                f"{ospath.dirname(ospath.realpath(__file__))}/assets/back.jpg"
                 ).resize
             (
                 (1000, 500)
@@ -197,7 +196,7 @@ class param():
 
 BackImg=ImageTk.PhotoImage(
     Image.open(
-        f"{ospath.dirname(ospath.realpath(__file__))}/back.jpg"
+        f"{ospath.dirname(ospath.realpath(__file__))}/assets/back.jpg"
         ).resize
     (
         (1000, 500)
@@ -226,7 +225,7 @@ root.update()
 
 LogoImg=ImageTk.PhotoImage(
     Image.open(
-        f"{ospath.dirname(ospath.realpath(__file__))}/logo.png"
+        f"{ospath.dirname(ospath.realpath(__file__))}/assets/logo.png"
         ).resize
     (
         (80, 80)
