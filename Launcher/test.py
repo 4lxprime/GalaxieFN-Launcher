@@ -35,7 +35,7 @@ def DRPC():
             start=start,
             buttons=[{"label": "Discord GalaxieFN", "url": "https://giscord.gg/A9uMJJCY"}],
             state="GalaxieFN Launcher",
-            large_image="logo"
+            large_image="galaxiefn"
         )
 
 tRpc=Thread(target=DRPC)

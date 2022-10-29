@@ -36,7 +36,7 @@ def DRPC():
             start=start,
             buttons=[{"label": "Discord GalaxieFN", "url": "https://giscord.gg/A9uMJJCY"}],
             state="GalaxieFN Launcher",
-            large_image="logo"
+            large_image="galaxiefn"
         )
 
 tRpc=Thread(target=DRPC)
@@ -60,7 +60,9 @@ class param():
         self.top.title(f"  GalaxieFn Parameters")
         self.top.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/logo.ico")
         
-        self.conf_file=open(f"{ospath.dirname(ospath.realpath(__file__))}/config.json")
+        with open("config.json", "w") as f:
+            f.write('{"path": "", "username": "GalaxieFNuser"}')
+        self.conf_file=open("config.json")
         self.config=load(self.conf_file)
         
         self.PBackImg=ImageTk.PhotoImage(
@@ -188,12 +190,12 @@ class param():
     def save(self, x):
         self.config['username']=self.UsrE.get()
         self.config['path']=self.FileE.get()
-        dump(self.config, open(f"{ospath.dirname(ospath.realpath(__file__))}/config.json", "w"))
+        dump(self.config, open("config.json", "w"))
     
     def saveBis(self):
         self.config['username']=self.UsrE.get()
         self.config['path']=self.FileE.get()
-        dump(self.config, open(f"{ospath.dirname(ospath.realpath(__file__))}/config.json", "w"))
+        dump(self.config, open("config.json", "w"))
 
 BackImg=ImageTk.PhotoImage(
     Image.open(
