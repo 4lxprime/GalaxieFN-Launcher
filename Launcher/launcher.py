@@ -20,28 +20,29 @@ def startG():
     conf_file=open('config.json')
     p=load(conf_file)
     if p['path']=='' or ospath.exists(p):
-        messagebox.showinfo(title="Fichiers non trouvés", message="Vous devez d'abbord parametrer les fichiers du jeuxou verifier qu'ils soient bien parametrer.")
+        messagebox.showinfo(title="Fichiers non trouvés", message="Vous devez d'abbord parametrer les fichiers du jeux ou verifier qu'ils soient bien parametrer.")
     else:
         system(f"start {p}/start.bat")
         
 
-rpc_id=1029738684330819665
-RPC=Presence(rpc_id)
-RPC.connect()
-start=int(time())
+## uncomment if you would to active discord rpc
+#rpc_id=1029738684330819665
+#RPC=Presence(rpc_id)
+#RPC.connect()
+#start=int(time())
 
-def DRPC():
-    while 1:
-        RPC.update(
-            start=start,
-            buttons=[{"label": "Discord GalaxieFN", "url": "https://giscord.gg/A9uMJJCY"}],
-            state="GalaxieFN Launcher",
-            large_image="galaxiefn"
-        )
+#def DRPC():
+#    while 1:
+#        RPC.update(
+#            start=start,
+#            buttons=[{"label": "Discord GalaxieFN", "url": "https://giscord.gg/A9uMJJCY"}],
+#            state="GalaxieFN Launcher",
+#            large_image="galaxiefn"
+#        )
 
-tRpc=Thread(target=DRPC)
-tRpc.setDaemon(True)
-tRpc.start()
+#tRpc=Thread(target=DRPC)
+#tRpc.setDaemon(True)
+#tRpc.start()
 
 root=Tk()
 
@@ -49,7 +50,7 @@ root.geometry("1000x500")
 root.minsize(1000, 500)
 root.maxsize(1000, 500)
 root.title("  GalaxieFN Launcher")
-root.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/logo.ico")
+root.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/assets/logo.ico") # if you would compile with nuitka, remove assets/
 
 class param():
     def __init__(self):
@@ -58,17 +59,16 @@ class param():
         self.top.minsize(800, 500)
         self.top.maxsize(800, 500)
         self.top.title(f"  GalaxieFn Parameters")
-        self.top.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/logo.ico")
+        self.top.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/assets/logo.ico") # if you would compile with nuitka, remove assets/
         
-        if not ospath.exists("config.json"):
-            with open("config.json", "w") as f:
-                f.write('{"path": "", "username": "GalaxieFNuser"}')
+        with open("config.json", "w") as f:
+            f.write('{"path": "", "username": "GalaxieFNuser"}')
         self.conf_file=open("config.json")
         self.config=load(self.conf_file)
         
         self.PBackImg=ImageTk.PhotoImage(
             Image.open(
-                f"{ospath.dirname(ospath.realpath(__file__))}/back.jpg"
+                f"{ospath.dirname(ospath.realpath(__file__))}/assets/back.jpg" # if you would compile with nuitka, remove assets/
                 ).resize
             (
                 (1000, 500)
@@ -200,7 +200,7 @@ class param():
 
 BackImg=ImageTk.PhotoImage(
     Image.open(
-        f"{ospath.dirname(ospath.realpath(__file__))}/back.jpg"
+        f"{ospath.dirname(ospath.realpath(__file__))}/assets/back.jpg" # if you would compile with nuitka, remove assets/
         ).resize
     (
         (1000, 500)
@@ -229,7 +229,7 @@ root.update()
 
 LogoImg=ImageTk.PhotoImage(
     Image.open(
-        f"{ospath.dirname(ospath.realpath(__file__))}/logo.png"
+        f"{ospath.dirname(ospath.realpath(__file__))}/assets/logo.png" # if you would compile with nuitka, remove assets/
         ).resize
     (
         (80, 80)
@@ -309,3 +309,6 @@ paramB=canvas.create_window(
 
 root.protocol("WM_DELETE_WINDOW", stop)
 root.mainloop()
+
+# nocturno > cosmos
+# ez
