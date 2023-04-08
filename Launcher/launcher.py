@@ -60,8 +60,9 @@ class param():
         self.top.title(f"  GalaxieFn Parameters")
         self.top.iconbitmap(f"{ospath.dirname(ospath.realpath(__file__))}/logo.ico")
         
-        with open("config.json", "w") as f:
-            f.write('{"path": "", "username": "GalaxieFNuser"}')
+        if not ospath.exists("config.json"):
+            with open("config.json", "w") as f:
+                f.write('{"path": "", "username": "GalaxieFNuser"}')
         self.conf_file=open("config.json")
         self.config=load(self.conf_file)
         
